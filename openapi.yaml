@@ -1,0 +1,53 @@
+openapi: "3.0.3"
+
+info:
+  title: My Web App
+  version: "1.0.0"
+  contact:
+    name: "John Doe"
+    email: "no-reply@fakedomain.com"
+
+paths:
+  /:
+    get:
+      responses:
+        '200':
+          description: A simple string response
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /health:
+    get:
+      responses:
+        '204':
+          description: Indicate the web app is operational
+        '503':
+          description: Web app is under maintenance 
+
+  /metadata:
+    get:
+      responses:
+        '200':
+          description: Metadata about the web app
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppMetadata'
+
+components:
+  schemas:
+    AppMetadata:
+      type: object
+      required:
+        - version
+        - description
+        - lastcommitsha
+      properties:
+        version:
+          type: string
+        description:
+          type: string
+        lastcommitsha:
+          type: string
