@@ -35,3 +35,6 @@ run-local: build
 test: generate
 	@go test -v -cover ./internal/api/server/...
 .PHONY: test
+
+deploy: build
+	@echo "--- Deploy the artifact located at ./dist/api to the desired platform"
