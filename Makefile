@@ -1,4 +1,5 @@
 GO_DOCKER_VERSION := 1.16
+APP_PORT := 1111
 
 test-swagger:
 	docker run --rm -it -v $(PWD):/var/task stoplight/spectral:4.2 lint -s api-servers -F warn --verbose /var/task/openapi.yaml
@@ -16,7 +17,7 @@ docker-env:
 build: generate
 	@echo "--- build the artifact"
 	@mkdir -p dist
-	@GOOS=linux GOARCH=amd64 go build -o ./dist/api ./cmd/api
+	@GOOS=linux GOARCH=amd64 go build -ldflags "-X main.CommitHash=$(shell git rev-parse --short HEAD)" -o ./dist/api ./cmd/api
 .PHONY: build
 
 generate:
@@ -28,9 +29,9 @@ run-local: build
 	@docker run --rm \
 		-v $(shell pwd):/src \
 		-w /src -it \
-		-p 1323:1323 \
+		-p 8888:$(APP_PORT) \
 		golang:$(GO_DOCKER_VERSION) \
-		./dist/api
+		./dist/api -port $(APP_PORT) -local
 .PHONY: run-local
 
 test: generate

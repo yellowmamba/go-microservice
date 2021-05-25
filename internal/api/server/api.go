@@ -17,15 +17,12 @@ type ServerConfig struct {
 	InMaintenance bool
 }
 
-const AppDescription = "This is a web api."
+const AppDescription string = "This is a web api."
+const AppVersion string = "1.0.0"
 
-func NewApiServer() (*ApiServer, error) {
+func NewApiServer(config *ServerConfig) (*ApiServer, error) {
 	return &ApiServer{
-		Config: &ServerConfig{
-			ApiVersion:    "1.0.0",
-			LastCommit:    "abcdefg",
-			InMaintenance: false,
-		},
+		Config: config,
 	}, nil
 }
 
