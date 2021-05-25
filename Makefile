@@ -31,6 +31,7 @@ run-local: build
 		-p 1323:1323 \
 		golang:$(GO_DOCKER_VERSION) \
 		./dist/api
+.PHONY: run-local
 
 test: generate
 	@go test -v -cover ./internal/api/server/...
@@ -38,3 +39,4 @@ test: generate
 
 deploy: build
 	@echo "--- Deploy the artifact located at ./dist/api to the desired platform"
+.PHONY: deploy
