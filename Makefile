@@ -2,7 +2,7 @@ GO_DOCKER_VERSION := 1.16
 APP_PORT := 1111
 
 test-swagger:
-	docker run --rm -it -v $(PWD):/var/task stoplight/spectral:4.2 lint -s api-servers -F warn --verbose /var/task/openapi.yaml
+	docker run --rm -t -v $(PWD):/var/task stoplight/spectral:4.2 lint -s api-servers -F error --verbose /var/task/openapi.yaml
 .PHONY: test-swagger
 
 
@@ -34,7 +34,7 @@ run-local: build
 		./dist/api -port $(APP_PORT) -local
 .PHONY: run-local
 
-test: generate
+test: test-swagger generate
 	@go test -v -cover ./internal/api/server/...
 .PHONY: test
 
