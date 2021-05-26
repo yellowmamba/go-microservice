@@ -20,6 +20,9 @@ make run-local
 ```
 This will start a local server on `http://localhost:8888`. `run-local` will first generate all the code, and the build the project into a binary including the latest commit hash, and then executes the binary in a docker container. The port that the app is running on will be exposed to the localhost on port 8888.
 
+# Maintenance mode
+You can optionally pass in `-maintenance` flag when executing the binary, in `run-local` target after `./dist/api`, just like how it's currently flagging it's local. When you flag `-maintenance`, `GET /health` API should return a 503 status code.
+
 # CI
 The project is using Github Actions for continuous integration. There are two CI workflows defined:
 
