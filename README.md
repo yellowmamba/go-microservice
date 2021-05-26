@@ -25,6 +25,11 @@ The project is using Github Actions for continuous integration. There are two CI
 
 - Test that runs on each commit for all branches bar the master branch, as well as for pull requests made to the master branch.
 - Test and then deploy that runs only for master branch.
+  
+# Test
+Two main tests are involved:
+- `make test-swagger`: test swagger yaml definition file
+- `make test`: unit test custom go code.
 
 # Risks
 Depending on where the app will be deployed to for production, there maybe further API integration required. When `-local` flag is specified during the execution of the binary like in `make run-local`, it's using a built-in http server, but the app behaviour may vary depending on the production runtime setup.
